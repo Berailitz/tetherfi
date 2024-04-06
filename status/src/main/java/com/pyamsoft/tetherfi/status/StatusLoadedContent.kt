@@ -53,6 +53,7 @@ internal fun LazyListScope.renderLoadedContent(
     onPasswordChanged: (String) -> Unit,
     onTogglePasswordVisibility: () -> Unit,
     onPortChanged: (String) -> Unit,
+    onChannelChanged: (String) -> Unit,
     onSelectBand: (ServerNetworkBand) -> Unit,
 
     // Battery
@@ -96,6 +97,7 @@ internal fun LazyListScope.renderLoadedContent(
       onSsidChanged = onSsidChanged,
       onPasswordChanged = onPasswordChanged,
       onPortChanged = onPortChanged,
+      onChannelChanged = onChannelChanged,
       onTogglePasswordVisibility = onTogglePasswordVisibility,
       onShowQRCode = onShowQRCode,
       onRefreshConnection = onRefreshConnection,

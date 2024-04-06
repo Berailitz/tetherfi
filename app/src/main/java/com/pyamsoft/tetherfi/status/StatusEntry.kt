@@ -181,6 +181,7 @@ fun StatusEntry(
       onSsidChanged = { viewModel.handleSsidChanged(it.trim()) },
       onPasswordChanged = { viewModel.handlePasswordChanged(it) },
       onPortChanged = { viewModel.handlePortChanged(it) },
+      onChannelChanged = { viewModel.handleChannelChanged(it) },
       onOpenBatterySettings = {
         onLaunchIntent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
       },

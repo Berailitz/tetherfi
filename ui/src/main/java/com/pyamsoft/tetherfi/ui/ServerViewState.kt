@@ -29,6 +29,7 @@ interface ServerViewState : UiViewState {
   val group: StateFlow<BroadcastNetworkStatus.GroupInfo>
   val connection: StateFlow<BroadcastNetworkStatus.ConnectionInfo>
   val port: StateFlow<Int>
+  val channel: StateFlow<Int>
 }
 
 /** Only for testing */
@@ -40,4 +41,5 @@ class TestServerViewState : ServerViewState {
       MutableStateFlow<BroadcastNetworkStatus.ConnectionInfo>(
           BroadcastNetworkStatus.ConnectionInfo.Empty)
   override val port = MutableStateFlow(ServerDefaults.PORT)
+  override val channel = MutableStateFlow(ServerDefaults.CHANNEL)
 }

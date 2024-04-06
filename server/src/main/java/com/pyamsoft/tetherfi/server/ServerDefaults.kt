@@ -24,12 +24,13 @@ object ServerDefaults {
 
   const val SSID = "TetherFi"
   const val PORT = 8228
+  const val CHANNEL = 48
   val NETWORK_BAND = ServerNetworkBand.LEGACY
 
   @JvmStatic
   @CheckResult
   fun getSsidPrefix(): String {
-    return "DIRECT-TF-"
+    return "DIRECT-"
   }
 
   @JvmStatic

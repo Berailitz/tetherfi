@@ -61,41 +61,17 @@ internal fun NetworkBands(
         text = "Broadcast Frequency",
     )
     if (canUseCustomConfig) {
-      val bands = remember { ServerNetworkBand.entries }
-      val bandIterator = remember(bands) { bands.withIndex() }
-      val generator = rememberHeightMatcherGenerator<ServerNetworkBand>()
-
-      // Then the buttons
-      Row {
-        for ((index, b) in bandIterator) {
-          val isSelected = remember(b, band) { b == band }
-          val heightMatcher = generator.generateFor(b)
-
-          Box(
-              modifier =
-                  Modifier.weight(1F)
-                      .then(heightMatcher.onSizeChangedModifier)
-                      .padding(
-                          end =
-                              if (index < bands.lastIndex) MaterialTheme.keylines.content
-                              else ZeroSize,
-                      ),
-          ) {
-            CheckableCard(
-                modifier = Modifier.fillMaxWidth(),
-                isEditable = isEditable,
-                condition = isSelected,
-                title = b.displayName,
-                description = b.description,
-                extraHeight = heightMatcher.extraHeight,
-                onClick = {
-                  hapticManager?.toggleOn()
-                  onSelectBand(b)
-                },
-            )
-          }
-        }
-      }
+      Text(
+        text = "Network Broadcast Frequency is defined by CHANNEL section above.",
+        style =
+        MaterialTheme.typography.body1.copy(
+          fontWeight = FontWeight.W700,
+          color =
+          MaterialTheme.colors.onSurface.copy(
+            alpha = ContentAlpha.medium,
+          ),
+        ),
+      )
     } else {
       Text(
           text = "Network Broadcast Frequency is defined by the system and cannot be changed.",

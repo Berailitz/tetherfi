@@ -75,6 +75,34 @@ internal fun EditPort(
 }
 
 @Composable
+internal fun EditChannel(
+  modifier: Modifier = Modifier,
+  state: StatusViewState,
+  onChannelChanged: (String) -> Unit,
+) {
+  val channel by state.channel.collectAsStateWithLifecycle()
+  val portNumber = remember(channel) { channel.toIntOrNull() }
+  val isValid = remember(portNumber) { portNumber != null && portNumber in 32..177 }
+
+  StatusEditor(
+    modifier = modifier,
+    title = "CHANNEL",
+    value = channel,
+    onChange = onChannelChanged,
+    keyboardOptions =
+    KeyboardOptions(
+      keyboardType = KeyboardType.Number,
+    ),
+    trailingIcon = {
+      ValidIcon(
+        isValid = isValid,
+        what = "Channel",
+      )
+    },
+  )
+}
+
+@Composable
 internal fun EditPassword(
     modifier: Modifier = Modifier,
     state: StatusViewState,

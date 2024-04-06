@@ -27,6 +27,7 @@ private enum class RenderEditableItemsContentTypes {
   EDIT_SSID,
   EDIT_PASSWD,
   EDIT_PORT,
+  EDIT_CHANNEL,
 }
 
 internal fun LazyListScope.renderEditableItems(
@@ -35,6 +36,7 @@ internal fun LazyListScope.renderEditableItems(
     onSsidChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onPortChanged: (String) -> Unit,
+    onChannelChanged: (String) -> Unit,
     onTogglePasswordVisibility: () -> Unit,
 ) {
   item(
@@ -65,6 +67,16 @@ internal fun LazyListScope.renderEditableItems(
         modifier = modifier.padding(bottom = MaterialTheme.keylines.baseline),
         state = state,
         onPortChanged = onPortChanged,
+    )
+  }
+
+  item(
+    contentType = RenderEditableItemsContentTypes.EDIT_CHANNEL,
+  ) {
+    EditChannel(
+      modifier = modifier.padding(bottom = MaterialTheme.keylines.baseline),
+      state = state,
+      onChannelChanged = onChannelChanged,
     )
   }
 }

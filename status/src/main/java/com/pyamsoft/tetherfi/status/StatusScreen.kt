@@ -70,6 +70,7 @@ fun StatusScreen(
     onTogglePasswordVisibility: () -> Unit,
     onSelectBand: (ServerNetworkBand) -> Unit,
     onPortChanged: (String) -> Unit,
+    onChannelChanged: (String) -> Unit,
 
     // Battery Optimization
     onOpenBatterySettings: () -> Unit,
@@ -232,6 +233,7 @@ fun StatusScreen(
             onSsidChanged = onSsidChanged,
             onPasswordChanged = onPasswordChanged,
             onPortChanged = onPortChanged,
+            onChannelChanged = onChannelChanged,
             onOpenBatterySettings = onOpenBatterySettings,
             onSelectBand = onSelectBand,
             onRequestNotificationPermission = onRequestNotificationPermission,
@@ -299,6 +301,7 @@ private fun PreviewStatusScreen(
       onOpenPermissionSettings = {},
       onPasswordChanged = {},
       onPortChanged = {},
+      onChannelChanged = {},
       onRequestPermissions = {},
       onSsidChanged = {},
       onToggleProxy = {},

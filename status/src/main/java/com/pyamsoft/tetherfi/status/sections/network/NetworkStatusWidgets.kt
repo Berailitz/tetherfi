@@ -53,6 +53,7 @@ internal fun LazyListScope.renderNetworkInformation(
     onSsidChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onPortChanged: (String) -> Unit,
+    onChannelChanged: (String) -> Unit,
     onTogglePasswordVisibility: () -> Unit,
 
     // Connections
@@ -110,6 +111,7 @@ internal fun LazyListScope.renderNetworkInformation(
         onSsidChanged = onSsidChanged,
         onPasswordChanged = onPasswordChanged,
         onPortChanged = onPortChanged,
+        onChannelChanged = onChannelChanged,
         onTogglePasswordVisibility = onTogglePasswordVisibility,
     )
   } else {

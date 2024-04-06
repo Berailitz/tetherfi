@@ -70,6 +70,7 @@ internal constructor(
       var ssid: Boolean,
       var password: Boolean,
       var port: Boolean,
+      var channel: Boolean,
       var band: Boolean,
       var wakeLock: Boolean,
       var wifiLock: Boolean,
@@ -81,6 +82,7 @@ internal constructor(
 
   private fun markPreferencesLoaded(config: LoadConfig) {
     if (config.port &&
+        config.channel &&
         config.wifiLock &&
         config.wakeLock &&
         config.ignoreVpn &&
@@ -231,6 +233,7 @@ internal constructor(
             ssid = false,
             password = false,
             port = false,
+            channel = false,
             band = false,
             wakeLock = false,
             wifiLock = false,
@@ -340,6 +343,16 @@ internal constructor(
         s.port.value = if (p == 0) "" else "$p"
 
         config.port = true
+        markPreferencesLoaded(config)
+      }
+    }
+
+    configPreferences.listenForChannelChanges().also { f ->
+      scope.launch(context = Dispatchers.Default) {
+        val p = f.first()
+        s.channel.value = if (p == 0) "" else "$p"
+
+        config.channel = true
         markPreferencesLoaded(config)
       }
     }
@@ -485,6 +498,13 @@ internal constructor(
 
     val portValue = port.toIntOrNull()
     configPreferences.setPort(portValue ?: 0)
+  }
+
+  fun handleChannelChanged(channel: String) {
+    state.channel.value = channel
+
+    val channelValue = channel.toIntOrNull()
+    configPreferences.setChannel(channelValue ?: 0)
   }
 
   fun handleToggleProxyWakeLock() {

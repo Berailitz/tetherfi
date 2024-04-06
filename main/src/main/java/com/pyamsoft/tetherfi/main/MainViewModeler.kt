@@ -115,6 +115,10 @@ internal constructor(
       scope.launch(context = Dispatchers.Default) { f.collect { s.port.value = it } }
     }
 
+    configPreferences.listenForChannelChanges().also { f ->
+      scope.launch(context = Dispatchers.Default) { f.collect { s.channel.value = it } }
+    }
+
     // But then once we are done editing and we start getting events from the receiver,
     // take them instead
     broadcastObserver.listenNetworkEvents().also { f ->

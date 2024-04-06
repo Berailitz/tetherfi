@@ -68,33 +68,55 @@ internal fun ViewProxy(
         if (portNumber in 1024..65000) "$portNumber" else "INVALID PORT"
       }
 
+  val channelNumber by serverViewState.channel.collectAsStateWithLifecycle()
+  val channel =
+      remember(
+          channelNumber,
+      ) {
+          if (channelNumber in 32..177) "$channelNumber" else "INVALID CHANNEL"
+      }
+
   Row(
       modifier = modifier,
       verticalAlignment = Alignment.CenterVertically,
   ) {
     StatusItem(
-        modifier = Modifier.weight(1F, fill = false),
-        title = "PROXY URL/HOSTNAME",
-        value = ipAddress,
-        valueStyle =
-            MaterialTheme.typography.h6.copy(
-                fontWeight = FontWeight.W400,
-                fontFamily = FontFamily.Monospace,
-            ),
+      modifier = Modifier.weight(1F, fill = false),
+      title = "PROXY URL/HOSTNAME",
+      value = ipAddress,
+      valueStyle =
+      MaterialTheme.typography.h6.copy(
+        fontWeight = FontWeight.W400,
+        fontFamily = FontFamily.Monospace,
+      ),
     )
 
     Spacer(
-        modifier = Modifier.width(MaterialTheme.keylines.content),
+      modifier = Modifier.width(MaterialTheme.keylines.content),
     )
 
     StatusItem(
-        title = "PROXY PORT",
-        value = port,
-        valueStyle =
-            MaterialTheme.typography.h6.copy(
-                fontWeight = FontWeight.W400,
-                fontFamily = FontFamily.Monospace,
-            ),
+      title = "PROXY PORT",
+      value = port,
+      valueStyle =
+      MaterialTheme.typography.h6.copy(
+        fontWeight = FontWeight.W400,
+        fontFamily = FontFamily.Monospace,
+      ),
+    )
+
+    Spacer(
+      modifier = Modifier.width(MaterialTheme.keylines.content),
+    )
+
+    StatusItem(
+      title = "CHANNEL",
+      value = channel,
+      valueStyle =
+      MaterialTheme.typography.h6.copy(
+        fontWeight = FontWeight.W400,
+        fontFamily = FontFamily.Monospace,
+      ),
     )
   }
 }

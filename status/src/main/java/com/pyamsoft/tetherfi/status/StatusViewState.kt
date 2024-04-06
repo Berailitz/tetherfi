@@ -40,6 +40,7 @@ interface StatusViewState : UiViewState {
   val password: StateFlow<String>
   val isPasswordVisible: StateFlow<Boolean>
   val port: StateFlow<String>
+  val channel: StateFlow<String>
   val band: StateFlow<ServerNetworkBand?>
 
   // Permissions
@@ -86,6 +87,7 @@ class MutableStatusViewState @Inject internal constructor() : StatusViewState {
   override val password = MutableStateFlow("")
   override val isPasswordVisible = MutableStateFlow(false)
   override val port = MutableStateFlow("")
+  override val channel = MutableStateFlow("")
   override val band = MutableStateFlow<ServerNetworkBand?>(null)
 
   override val startBlockers = MutableStateFlow<Collection<HotspotStartBlocker>>(emptySet())

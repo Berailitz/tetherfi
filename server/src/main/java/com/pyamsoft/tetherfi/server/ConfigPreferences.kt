@@ -33,6 +33,10 @@ interface ConfigPreferences {
 
   fun setPort(port: Int)
 
+  @CheckResult fun listenForChannelChanges(): Flow<Int>
+
+  fun setChannel(channel: Int)
+
   @CheckResult fun listenForNetworkBandChanges(): Flow<ServerNetworkBand>
 
   fun setNetworkBand(band: ServerNetworkBand)

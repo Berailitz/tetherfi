@@ -146,6 +146,11 @@ internal constructor(
 
   override fun setPort(port: Int) = setPreference { putInt(PORT, port) }
 
+  override fun listenForChannelChanges(): Flow<Int> =
+    preferenceIntFlow(CHANNEL, ServerDefaults.CHANNEL) { preferences }.flowOn(context = Dispatchers.IO)
+
+  override fun setChannel(channel: Int) = setPreference { putInt(CHANNEL, channel) }
+
   override fun listenForNetworkBandChanges(): Flow<ServerNetworkBand> =
       preferenceStringFlow(NETWORK_BAND, ServerDefaults.NETWORK_BAND.name) { preferences }
           .map { ServerNetworkBand.valueOf(it) }
@@ -306,6 +311,7 @@ internal constructor(
     private const val SSID = "key_ssid_1"
     private const val PASSWORD = "key_password_1"
     private const val PORT = "key_port_1"
+    private const val CHANNEL = "key_channel_1"
     private const val NETWORK_BAND = "key_network_band_1"
 
     private const val WAKE_LOCK = "key_wake_lock_1"

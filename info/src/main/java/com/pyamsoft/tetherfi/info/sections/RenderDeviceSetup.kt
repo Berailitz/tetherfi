@@ -273,6 +273,33 @@ internal fun LazyListScope.renderDeviceSetup(
           )
         }
 
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+        ) {
+          Text(
+            text = "Channel",
+            style =
+            MaterialTheme.typography.body1.copy(
+              color =
+              MaterialTheme.colors.onBackground.copy(
+                alpha = ContentAlpha.medium,
+              ),
+            ),
+          )
+
+          val channel by serverViewState.channel.collectAsStateWithLifecycle()
+          val channelNumber = remember(channel) { if (channel < 32 || channel > 177) "INVALID CHANNEL" else "$channel" }
+          Text(
+            modifier = Modifier.padding(start = MaterialTheme.keylines.typography),
+            text = channelNumber,
+            style =
+            MaterialTheme.typography.body1.copy(
+              fontWeight = FontWeight.W700,
+              fontFamily = FontFamily.Monospace,
+            ),
+          )
+        }
+
         FullConnectionInstructions(
             modifier = Modifier.padding(top = MaterialTheme.keylines.typography),
         )

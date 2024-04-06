@@ -48,11 +48,8 @@ internal constructor(
 
   @CheckResult
   @RequiresApi(Build.VERSION_CODES.Q)
-  private suspend fun getPreferredBand(): Int {
-    return when (preferences.listenForNetworkBandChanges().first()) {
-      ServerNetworkBand.MODERN -> WifiP2pConfig.GROUP_OWNER_BAND_5GHZ
-      ServerNetworkBand.LEGACY -> WifiP2pConfig.GROUP_OWNER_BAND_2GHZ
-    }
+  private suspend fun getPreferredChannel(): Int {
+    return preferences.listenForChannelChanges().first()
   }
 
   override suspend fun getConfiguration(): WifiP2pConfig? =
@@ -63,12 +60,24 @@ internal constructor(
 
         val ssid = ServerDefaults.asSsid(getPreferredSsid())
         val passwd = getPreferredPassword()
-        val band = getPreferredBand()
+        val channel = getPreferredChannel()
 
         return@withContext WifiP2pConfig.Builder()
             .setNetworkName(ssid)
             .setPassphrase(passwd)
-            .setGroupOperatingBand(band)
+            .setGroupOperatingFrequency(channelToFrequency(channel))
             .build()
       }
+}
+
+/**
+ * Based on:
+ * https://elixir.bootlin.com/linux/v5.12.8/source/net/wireless/util.c#L75
+ * https://cs.android.com/android/platform/superproject/+/master:packages/modules/Wifi/framework/java/android/net/wifi/ScanResult.java;l=789;drc=71d758698c45984d3f8de981bf98e56902480f16
+ */
+private suspend fun channelToFrequency(chan: Int): Int {
+    return if (chan in 182..196)
+        4000 + chan * 5;
+    else
+        5000 + chan * 5;
 }
